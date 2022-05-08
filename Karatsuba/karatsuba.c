@@ -29,7 +29,7 @@ void fillZeros( int arr[], int arraySize ){
 
 void printArr( int array[], int arrSize ){
 
-  printf("\nArray:\n");
+//   printf("\nArray:\n");
   
   int start;
   for( start = 0 ; start < arrSize ; start++ ){
