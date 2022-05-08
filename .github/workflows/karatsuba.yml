@@ -12,7 +12,30 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        include:
+          - input: ""
+            output: ""
+          - input: 1k
+            output: 1k
+          - input: 2k
+            output: 2k
+          - input: 5k
+            output: 5k
+          - input: -5k-3
+            output: -5k-3
+          - input: -5k-5
+            output: -5k-5
+          - input: 10k
+            output: 10k
+          - input: 20k
+            output: 20k
+          - input: 25k
+            output: 25k
+          - input: 30k
+            output: 30k
+        
     steps:
     - uses: actions/checkout@v3
 #     - uses: actions/checkout@v2.3.4
@@ -21,70 +44,6 @@ jobs:
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input.txt
-        assert_file_path: ./Karatsuba/Outputs/output.txt
-        expected_result: PASSED
-
-    - uses: GuillaumeFalourd/assert-command-line-output@v2
-      with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input1k.txt
-        assert_file_path: ./Karatsuba/Outputs/output1k.txt
-        expected_result: PASSED
-
-    - uses: GuillaumeFalourd/assert-command-line-output@v2
-      with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input2k.txt
-        assert_file_path: ./Karatsuba/Outputs/output2k.txt
-        expected_result: PASSED
-
-    - uses: GuillaumeFalourd/assert-command-line-output@v2
-      with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input5k.txt
-        assert_file_path: ./Karatsuba/Outputs/output5k.txt
-        expected_result: PASSED
-
-    - uses: GuillaumeFalourd/assert-command-line-output@v2
-      with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input-5k-3.txt
-        assert_file_path: ./Karatsuba/Outputs/output-5k-3.txt
-        expected_result: PASSED
-
-    - uses: GuillaumeFalourd/assert-command-line-output@v2
-      with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input-5k-5.txt
-        assert_file_path: ./Karatsuba/Outputs/output-5k-5.txt
-        expected_result: PASSED
-
-    - uses: GuillaumeFalourd/assert-command-line-output@v2
-      with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input10k.txt
-        assert_file_path: ./Karatsuba/Outputs/output10k.txt
-        expected_result: PASSED
-
-    - uses: GuillaumeFalourd/assert-command-line-output@v2
-      with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input20k.txt
-        assert_file_path: ./Karatsuba/Outputs/output20k.txt
-        expected_result: PASSED
-
-    - uses: GuillaumeFalourd/assert-command-line-output@v2
-      with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input25k.txt
-        assert_file_path: ./Karatsuba/Outputs/output25k.txt
-        expected_result: PASSED
-
-    - uses: GuillaumeFalourd/assert-command-line-output@v2
-      with:
-        command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input30k.txt
-        assert_file_path: ./Karatsuba/Outputs/output30k.txt
+        command_line: ./Karatsuba/karatsuba ./Karatsuba/Inputs/input${{ matrix.input }}.txt
+        assert_file_path: ./Karatsuba/Outputs/output${{ matrix.output }}.txt
         expected_result: PASSED
