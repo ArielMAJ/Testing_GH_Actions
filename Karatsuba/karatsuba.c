@@ -205,8 +205,8 @@ int getNumbersSizeFromFile( FILE *fileObject  ){
 	return nInt;
 }
 
-void loadNumbersFromFile( FILE *fileObject, int nInt, int arrA[], int arrB[] ){
-
+void loadNumbersFromFile(FILE *fileObject, int nInt, int arrA[], int arrB[])
+{
 	char aFile[nInt+1], bFile[nInt+1], tmp[9999]; //Criando strings do tamanho necessário para ler cada linha;
 	fgets(aFile, nInt+1, fileObject); //Lendo exatamente a quantidade de caracteres indicado na primeira linha;
 	fgets(tmp, 9999, fileObject); //Ignorando o resto dos caracteres (Sempre haverá, pelo menos, um '\n');
