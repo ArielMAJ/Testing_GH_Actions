@@ -72,7 +72,7 @@ void intArrToString(int arr[], int arrSize, char output[])
   int start;
   
   for (start = 0; start < arrSize; start++){
-		if( arr[start] != 0 )
+		if (arr[start] != 0)
 			break;
 	}
 	
