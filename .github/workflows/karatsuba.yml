@@ -67,3 +67,24 @@ jobs:
           ./Karatsuba/karatsuba ./Karatsuba/input10k.txt
         assert_file_path: ./Karatsuba/output10k.txt
         expected_result: PASSED
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input20k.txt
+        assert_file_path: ./Karatsuba/output20k.txt
+        expected_result: PASSED
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input25k.txt
+        assert_file_path: ./Karatsuba/output25k.txt
+        expected_result: PASSED
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input30k.txt
+        assert_file_path: ./Karatsuba/output30k.txt
+        expected_result: PASSED
