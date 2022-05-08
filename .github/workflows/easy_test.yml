@@ -26,6 +26,6 @@ jobs:
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
-        command_line: ./a.out < ${{ input.test_folder }}/${{ input.test }}.in
-        assert_file_path: ${{ input.test_folder }}/${{ input.test }}.out
+        command_line: ./a.out < ${{ inputs.test_folder }}/${{ inputs.test }}.in
+        assert_file_path: ${{ inputs.test_folder }}/${{ inputs.test }}.out
         expected_result: PASSED
