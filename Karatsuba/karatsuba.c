@@ -46,7 +46,7 @@ void stringToIntArray( char stringInput[], int intArrayOutput[] ){
 
 	int stringLength = strlen(stringInput);
 	
-	for( int position = 0; position < stringLength; position++ )
+	for(int position = 0; position < stringLength; position++)
 		intArrayOutput[position] = (int)stringInput[position] - 48;
 
 }
