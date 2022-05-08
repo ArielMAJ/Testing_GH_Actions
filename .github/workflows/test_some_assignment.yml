@@ -8,7 +8,7 @@ on:
 
 jobs:
   test_folders:
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
         
     strategy:
       matrix:
@@ -17,7 +17,7 @@ jobs:
             tests: "[1, 2, 3, 4, 5]"
 
     steps:
-    - uses: actions/checkout@v3
+#     - uses: actions/checkout@v3
     - uses: ArielMAJ/Testing_GH_Actions/.github/workflows/easy_test.yml@main
       with:
         file_paths: ./SomeAssignment/${{ matrix.folder }}/solution.c
