@@ -1,0 +1,69 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Karatsuba/karatsuba.c'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+#     - uses: actions/checkout@v2.3.4
+    - name: compile
+      run: gcc -std=c11 -Wall Karatsuba/karatsuba.c -o Karatsuba/karatsuba
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input.txt
+        assert_file_path: ./Karatsuba/output.txt
+        expected_result: PASSED
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input1k.txt
+        assert_file_path: ./Karatsuba/output1k.txt
+        expected_result: PASSED
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input2k.txt
+        assert_file_path: ./Karatsuba/output2k.txt
+        expected_result: PASSED
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input5k.txt
+        assert_file_path: ./Karatsuba/output5k.txt
+        expected_result: PASSED
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input-5k-3.txt
+        assert_file_path: ./Karatsuba/output-5k-3.txt
+        expected_result: PASSED
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input-5k-5.txt
+        assert_file_path: ./Karatsuba/output-5k-5.txt
+        expected_result: PASSED
+
+    - uses: GuillaumeFalourd/assert-command-line-output@v2
+      with:
+        command_line: 
+          ./Karatsuba/karatsuba ./Karatsuba/input10k.txt
+        assert_file_path: ./Karatsuba/output10k.txt
+        expected_result: PASSED
