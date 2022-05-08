@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: ./.github/workflows/easy_test.yml@main
+    - uses: ArielMAJ/Testing_GH_Actions/.github/workflows/easy_test.yml@main
       with:
         file_paths: ./SomeAssignment/${{ matrix.folder }}/solution.c
         tests_folder: ./SomeAssignment/${{ matrix.folder }}/
