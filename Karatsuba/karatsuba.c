@@ -39,13 +39,14 @@ int main(int argc, char *argv[])
 	char *inputFilePath = argv[1];
 	fileObject = fopen(inputFilePath, "r");
 
-	if ( fileObject == NULL ){
+	if (fileObject == NULL)
+	{
 		printf("Problema ao abrir arquivo no caminho: %s\n", inputFilePath);
 		printf("Favor verificar/alterar caminho do local do arquivo.\n");
 		return 1;
 	}
 
-	int	nInt=0;
+	int nInt=0;
 	nInt = getNumbersSizeFromFile(fileObject); // Obtém primeira linha.
 	int arrA[nInt], arrB[nInt];
 	loadNumbersFromFile(fileObject, nInt, arrA, arrB); //Lê segunda e terceira linha
