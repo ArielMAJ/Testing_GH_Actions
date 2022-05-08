@@ -8,18 +8,13 @@ on:
 
 jobs:
   test_folders:
-#     runs-on: ubuntu-latest
-        
-    strategy:
-      matrix:
-        include:
-          - folder: Q01
-            tests: "[1, 2, 3, 4, 5]"
+    uses: ArielMAJ/Testing_GH_Actions/.github/workflows/easy_test.yml@main
+    with:
+      files_paths: ./SomeAssignment/Q01/solution.c
+      test_folder: ./SomeAssignment/Q1/
+      test: 1
 
-    steps:
+    
+#     steps:
 #     - uses: actions/checkout@v3
-    - uses: ArielMAJ/Testing_GH_Actions/.github/workflows/easy_test.yml@main
-      with:
-        file_paths: ./SomeAssignment/${{ matrix.folder }}/solution.c
-        tests_folder: ./SomeAssignment/${{ matrix.folder }}/
-        tests: ${{ matrix.tests }}
+
