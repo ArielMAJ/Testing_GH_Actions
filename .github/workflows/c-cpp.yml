@@ -22,6 +22,6 @@ jobs:
 #     - name: make distcheck
 #       run: make distcheck
     - name: compile
-      run: g++ -std=c++11 -Wall delete_this.cpp
+      run: g++ -std=c++11 -Wall delete_this.cpp -o delete_this
     - name: run
       run: ./delete_this
