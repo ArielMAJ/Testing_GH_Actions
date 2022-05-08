@@ -22,69 +22,69 @@ jobs:
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input.txt
-        assert_file_path: ./Karatsuba/output.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input.txt
+        assert_file_path: ./Karatsuba/Outputs/output.txt
         expected_result: PASSED
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input1k.txt
-        assert_file_path: ./Karatsuba/output1k.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input1k.txt
+        assert_file_path: ./Karatsuba/Outputs/output1k.txt
         expected_result: PASSED
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input2k.txt
-        assert_file_path: ./Karatsuba/output2k.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input2k.txt
+        assert_file_path: ./Karatsuba/Outputs/output2k.txt
         expected_result: PASSED
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input5k.txt
-        assert_file_path: ./Karatsuba/output5k.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input5k.txt
+        assert_file_path: ./Karatsuba/Outputs/output5k.txt
         expected_result: PASSED
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input-5k-3.txt
-        assert_file_path: ./Karatsuba/output-5k-3.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input-5k-3.txt
+        assert_file_path: ./Karatsuba/Outputs/output-5k-3.txt
         expected_result: PASSED
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input-5k-5.txt
-        assert_file_path: ./Karatsuba/output-5k-5.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input-5k-5.txt
+        assert_file_path: ./Karatsuba/Outputs/output-5k-5.txt
         expected_result: PASSED
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input10k.txt
-        assert_file_path: ./Karatsuba/output10k.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input10k.txt
+        assert_file_path: ./Karatsuba/Outputs/output10k.txt
         expected_result: PASSED
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input20k.txt
-        assert_file_path: ./Karatsuba/output20k.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input20k.txt
+        assert_file_path: ./Karatsuba/Outputs/output20k.txt
         expected_result: PASSED
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input25k.txt
-        assert_file_path: ./Karatsuba/output25k.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input25k.txt
+        assert_file_path: ./Karatsuba/Outputs/output25k.txt
         expected_result: PASSED
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
         command_line: 
-          ./Karatsuba/karatsuba ./Karatsuba/input30k.txt
-        assert_file_path: ./Karatsuba/output30k.txt
+          ./Karatsuba/karatsuba ./Karatsuba/Inputs/input30k.txt
+        assert_file_path: ./Karatsuba/Outputs/output30k.txt
         expected_result: PASSED

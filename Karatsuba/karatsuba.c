@@ -4,16 +4,78 @@
 #include <math.h>
 // #include <time.h>
 
-void intArrToString( int arr[], int arrSize, char output[] ){
+
+void intArrToString(int arr[], int arrSize, char output[]);
+void fillZeros(int arr[], int arraySize);
+void printArr(int array[], int arrSize);
+void stringToIntArray(char stringInput[], int intArrayOutput[]);
+void subtrairArr(int a[], int b[], int res[], int nA, int nB, int nR);
+void somarArr(int a[], int b[],int res[], int nA, int nB, int nR);
+void multiplicacaoTradicional(int numero_A[], int numero_B[], int result[], int lenght_A, int lenght_B, int lenght_R);
+void sliceArr(int inputArray[], int outputArray[], int start, int end);
+void checkZeros(int input[], int lenInput,int zeros);
+void karatsuba_multiplication_algorithm(int numero_A[], int numero_B[], int nAB, int n0, int resultado[]);
+int getNumbersSizeFromFile(FILE *fileObject);
+void loadNumbersFromFile(FILE *fileObject, int nInt, int arrA[], int arrB[]);
+void saveResultsToOutputTxt(int resultado[], int lenR, char *output_file_name);
+
+
+int main(int argc, char *argv[])
+{
+	// if (argc != 3)
+	// {
+	// 	printf("Usage: ./karatsuba input.txt output.exe");
+	// 	return 1;
+	// }
+	if (argc != 2)
+	{
+		printf("Usage: ./karatsuba input.txt");
+		return 1;		
+	}
+	// gerar_CSV_de_Tempos_Com_Numeros_Aleatorios(); //Funções comentadas acima.
+	
+	FILE *fileObject;
+
+	char *inputFilePath = argv[1];
+	fileObject = fopen(inputFilePath, "r");
+
+	if ( fileObject == NULL ){
+		printf("Problema ao abrir arquivo no caminho: %s\n", inputFilePath);
+		printf("Favor verificar/alterar caminho do local do arquivo.\n");
+		return 1;
+	}
+
+	int	nInt=0;
+	nInt = getNumbersSizeFromFile(fileObject); // Obtém primeira linha.
+	int arrA[nInt], arrB[nInt];
+	loadNumbersFromFile(fileObject, nInt, arrA, arrB); //Lê segunda e terceira linha
+	// e retorna um array de inteiros com um dígito por posição.
+	fclose(fileObject);
+	
+	
+	int resultado[nInt*2];
+	fillZeros(resultado, nInt*2);
+	karatsuba_multiplication_algorithm(arrA, arrB, nInt, 3, resultado);
+	// multiplicacaoTradicional( arrA, arrB, resultado, nInt, nInt, nInt*2 );
+
+	printArr(resultado, nInt*2);
+	// saveResultsToOutputTxt(resultado, nInt*2, argv[2]);
+
+  return 0;
+}
+
+
+void intArrToString(int arr[], int arrSize, char output[])
+{
   char tmp2[2];
   int start;
   
-  for( start = 0; start < arrSize; start++){
+  for (start = 0; start < arrSize; start++){
 		if( arr[start] != 0 )
 			break;
 	}
 	
-  for( int i = start; i < arrSize; i++){
+  for (int i = start; i < arrSize; i++){
 		tmp2[0] = '\0';
     sprintf(tmp2, "%d", arr[i]);
     strncat(output, &tmp2[0], 1);
@@ -21,124 +83,128 @@ void intArrToString( int arr[], int arrSize, char output[] ){
    
 }
 
-void fillZeros( int arr[], int arraySize ){
-	for( int position = 0; position < arraySize; position++ ){
+void fillZeros(int arr[], int arraySize)
+{
+	for (int position = 0; position < arraySize; position++){
 		arr[position] = 0;
 	}
 }
 
-void printArr( int array[], int arrSize ){
-
+void printArr(int array[], int arrSize)
+{
 //   printf("\nArray:\n");
   
   int start;
-  for( start = 0 ; start < arrSize ; start++ ){
-		if( array[start] != 0 )
+  for (start = 0 ; start < arrSize ; start++){
+		if (array[start] != 0)
 			break;
 	}
 	
-  for( int i = start; i < arrSize; i++ )
+  for (int i = start; i < arrSize; i++)
     printf("%d", array[i]);
   
 }
 
-void stringToIntArray( char stringInput[], int intArrayOutput[] ){
-
+void stringToIntArray(char stringInput[], int intArrayOutput[])
+{
 	int stringLength = strlen(stringInput);
 	
-	for(int position = 0; position < stringLength; position++)
+	for (int position = 0; position < stringLength; position++)
 		intArrayOutput[position] = (int)stringInput[position] - 48;
 
 }
 
-void subtrairArr( int a[], int b[], int res[], int nA, int nB, int nR ){
+void subtrairArr(int a[], int b[], int res[], int nA, int nB, int nR)
+{
 //Correto para quando a>=b, que é o caso do algoritmo de Karatsuba.
-	int i=1, aMb, currPos, nextPos=0;
+	int i = 1, aMb, currPos, nextPos = 0;
 
-	while( nR-i >= 0 ){
-		aMb=nextPos;
-		if ( nA-i >=0 ){
-			aMb+=a[nA-i];
+	while(nR - i >= 0){
+		aMb = nextPos;
+		if (nA - i >=0){
+			aMb += a[nA - i];
 		}
-		if( nB-i >= 0 ){
-			aMb-=b[nB-i];
+		if (nB - i >= 0){
+			aMb -= b[nB - i];
 		}
-		if ( aMb >= 0 ){
-			currPos=aMb;
-			nextPos=0;
+		if (aMb >= 0){
+			currPos = aMb;
+			nextPos = 0;
 		}else{
-			currPos=10+aMb;
-			nextPos=-1;
+			currPos = 10 + aMb;
+			nextPos = -1;
 		}
-		res[nR-i]=currPos;
+		res[nR - i] = currPos;
 		i++;
 	}
 }
 
-void somarArr( int a[], int b[],int res[], int nA, int nB, int nR ){
-	int i=1,aPb,currPos,nextPos=0;
+void somarArr(int a[], int b[],int res[], int nA, int nB, int nR)
+{
+	int i = 1,aPb,currPos,nextPos=0;
 
-	while( nR-i >= 0 ){
-		aPb=nextPos;
-		if ( nA-i >= 0 ){
-			aPb+=a[nA-i];
+	while (nR - i >= 0){
+		aPb = nextPos;
+		if (nA - i >= 0){
+			aPb += a[nA - i];
 		}
-		if( nB-i >= 0 ){
-			aPb+=b[nB-i];
+		if(nB - i >= 0){
+			aPb += b[nB - i];
 		}
-		currPos=aPb%10;
-		nextPos=floor(aPb/10.0);
-		res[nR-i]=currPos;
+		currPos = aPb % 10;
+		nextPos = floor(aPb / 10.0);
+		res[nR - i] = currPos;
 		i++;
 	}
 }
 
-void multiplicacaoTradicional( int numero_A[], int numero_B[], int result[], int lenght_A, int lenght_B, int lenght_R ){
-	int i, j, k=lenght_A, aXb, currPos, nextPos=0;
+void multiplicacaoTradicional(int numero_A[], int numero_B[], int result[], int lenght_A, int lenght_B, int lenght_R)
+{
+	int i, j, k = lenght_A, aXb, currPos, nextPos = 0;
 
-	for( j = lenght_B-1; j >= 0; j-- ){
-			k-=lenght_A-1;
+	for (j = lenght_B - 1; j >= 0; j--){
+			k -= lenght_A - 1;
 			
-		for( i = lenght_A-1; i >= 0; i-- ){
-			aXb = numero_A[i] * numero_B[j] + result[lenght_R-k];
-			currPos=aXb%10;
-			nextPos=floor(aXb/10.0);
-			result[lenght_R-k]=currPos;
+		for (i = lenght_A - 1; i >= 0; i--){
+			aXb = numero_A[i] * numero_B[j] + result[lenght_R - k];
+			currPos = aXb % 10;
+			nextPos = floor(aXb / 10.0);
+			result[lenght_R - k] =currPos;
 			k++;
-			result[lenght_R-k]+=nextPos;
+			result[lenght_R - k] += nextPos;
 		}
 	}
 	
-	result[lenght_R-k+1]%=10;
-	result[lenght_R-k]+=floor(result[lenght_R-k+1]/10.0);
+	result[lenght_R - k + 1] %= 10;
+	result[lenght_R - k] += floor(result[lenght_R - k + 1] / 10.0);
 }
 
-void sliceArr( int inputArray[], int outputArray[], int start, int end ){
-
-	for(int position = start; position < end; position++)
-		outputArray[position-start] = inputArray[position];
-  
+void sliceArr(int inputArray[], int outputArray[], int start, int end)
+{
+	for (int position = start; position < end; position++)
+		outputArray[position - start] = inputArray[position]; 
 }
 
-void checkZeros( int input[], int lenInput,int zeros ){
-  for( zeros = 0; zeros < lenInput; zeros++){
-    if ( input[zeros] != 0 )
+void checkZeros(int input[], int lenInput,int zeros)
+{
+  for (zeros = 0; zeros < lenInput; zeros++){
+    if (input[zeros] != 0)
 			break;
 	}
 }
 
-void karatsuba_multiplication_algorithm( int numero_A[], int numero_B[], int nAB, int n0, int resultado[] ){
-	
-	if ( nAB <= n0 ){
-		multiplicacaoTradicional(numero_A, numero_B, resultado, nAB, nAB, nAB*2);
+void karatsuba_multiplication_algorithm(int numero_A[], int numero_B[], int nAB, int n0, int resultado[])
+{
+	if (nAB <= n0){
+		multiplicacaoTradicional(numero_A, numero_B, resultado, nAB, nAB, nAB * 2);
 		return;
 	}
 	
-	int m=ceil(nAB/2.0), mC=nAB-m, mC2=mC*2, m2=m*2;
+	int m = ceil(nAB / 2.0), mC = nAB - m, mC2 = mC * 2, m2 = m * 2;
 	
 	int A0[mC], A1[m], B0[mC], B1[m];
-	int C0[mC2], C1[m2], C2[m2+2];
-	int AA[m+1], BB[m+1];
+	int C0[mC2], C1[m2], C2[m2 + 2];
+	int AA[m + 1], BB[m + 1];
 	
 	fillZeros(A0, mC);
 	fillZeros(A1, m);
@@ -146,7 +212,7 @@ void karatsuba_multiplication_algorithm( int numero_A[], int numero_B[], int nAB
 	fillZeros(B1, m);
 	fillZeros(C0, mC2);
 	fillZeros(C1, m2);
-	fillZeros(C2, m2+2);
+	fillZeros(C2, m2 + 2);
 
 	sliceArr(numero_A, A0, 0, mC);
 	sliceArr(numero_A, A1, mC, nAB);
@@ -156,39 +222,39 @@ void karatsuba_multiplication_algorithm( int numero_A[], int numero_B[], int nAB
   karatsuba_multiplication_algorithm(A0, B0, mC, n0, C0);
   karatsuba_multiplication_algorithm(A1, B1, m, n0, C1);
 
-  somarArr(A0, A1, AA, mC, m, m+1);
-  somarArr(B0, B1, BB, mC, m, m+1);
-  karatsuba_multiplication_algorithm(AA, BB, m+1, n0, C2);
+  somarArr(A0, A1, AA, mC, m, m + 1);
+  somarArr(B0, B1, BB, mC, m, m + 1);
+  karatsuba_multiplication_algorithm(AA, BB, m + 1, n0, C2);
 
-	int P2[m2+2];
-	fillZeros(P2, m2+2);
-	somarArr(C0, C1, P2, mC2, m2, m2+2);
+	int P2[m2 + 2];
+	fillZeros(P2, m2 + 2);
+	somarArr(C0, C1, P2, mC2, m2, m2 + 2);
 
-	int P22[m2+2];
-	fillZeros(P22, m2+2);
-	subtrairArr(C2, P2, P22, m2+2, m2+2, m2+2);
+	int P22[m2 + 2];
+	fillZeros(P22, m2 + 2);
+	subtrairArr(C2, P2, P22, m2 + 2, m2 + 2, m2 + 2);
 
-	int zerosP=0;
-	checkZeros(P22, m2+2, zerosP);
+	int zerosP = 0;
+	checkZeros(P22, m2 + 2, zerosP);
 	
-	int P2toTheX[m2+2+m-zerosP];
-	fillZeros(P2toTheX, m2+2+m-zerosP);
-	sliceArr(P22, P2toTheX, zerosP, m2+2);
+	int P2toTheX[m2 + 2 + m - zerosP];
+	fillZeros(P2toTheX, m2 + 2 + m - zerosP);
+	sliceArr(P22, P2toTheX, zerosP, m2 + 2);
 
-	int zerosC0=0;
+	int zerosC0 = 0;
 	checkZeros(C0, mC2, zerosC0);
 	
-	int C0toTheX[mC2+m2-zerosC0];
-	fillZeros(C0toTheX, mC2+m2-zerosC0);
+	int C0toTheX[mC2 + m2 - zerosC0];
+	fillZeros(C0toTheX, mC2 + m2 - zerosC0);
 	sliceArr(C0, C0toTheX, zerosC0, mC2);
 
-	somarArr(C1, P2toTheX, resultado, m2, m2+2+m-zerosP, nAB*2);
-	somarArr(C0toTheX, resultado, resultado, mC2+m2-zerosC0, nAB*2, nAB*2);
+	somarArr(C1, P2toTheX, resultado, m2, m2 + 2 + m - zerosP, nAB * 2);
+	somarArr(C0toTheX, resultado, resultado, mC2 + m2 - zerosC0, nAB * 2, nAB * 2);
 	
 }
 
-int getNumbersSizeFromFile( FILE *fileObject  ){
-	
+int getNumbersSizeFromFile(FILE *fileObject)
+{
 	int nInt=0;
 	char  n[9999];
 	fgets(n, 9999, fileObject);
@@ -219,7 +285,8 @@ void loadNumbersFromFile(FILE *fileObject, int nInt, int arrA[], int arrB[])
 	stringToIntArray(bFile, arrB);
 }
 
-void saveResultsToOutputTxt( int resultado[], int lenR, char *output_file_name){
+void saveResultsToOutputTxt(int resultado[], int lenR, char *output_file_name)
+{
 	FILE *fileObject;
 	char resultAsString[lenR+1];
 
@@ -330,47 +397,3 @@ void gerar_CSV_de_Tempos_Com_Numeros_Aleatorios(){
 	fclose(fileObject);
 }
 */
-
-int main(int argc, char *argv[])
-{
-	// if (argc != 3)
-	// {
-	// 	printf("Usage: ./karatsuba input.txt output.exe");
-	// 	return 1;
-	// }
-	if (argc != 2)
-	{
-		printf("Usage: ./karatsuba input.txt");
-		return 1;		
-	}
-	// gerar_CSV_de_Tempos_Com_Numeros_Aleatorios(); //Funções comentadas acima.
-	
-	FILE *fileObject;
-
-	char *inputFilePath = argv[1];
-	fileObject = fopen(inputFilePath, "r");
-
-	if ( fileObject == NULL ){
-		printf("Problema ao abrir arquivo no caminho: %s\n", inputFilePath);
-		printf("Favor verificar/alterar caminho do local do arquivo.\n");
-		return 1;
-	}
-
-	int	nInt=0;
-	nInt = getNumbersSizeFromFile(fileObject); // Obtém primeira linha.
-	int arrA[nInt], arrB[nInt];
-	loadNumbersFromFile(fileObject, nInt, arrA, arrB); //Lê segunda e terceira linha
-	// e retorna um array de inteiros com um dígito por posição.
-	fclose(fileObject);
-	
-	
-	int resultado[nInt*2];
-	fillZeros(resultado, nInt*2);
-	karatsuba_multiplication_algorithm(arrA, arrB, nInt, 3, resultado);
-	// multiplicacaoTradicional( arrA, arrB, resultado, nInt, nInt, nInt*2 );
-
-	printArr(resultado, nInt*2);
-	// saveResultsToOutputTxt(resultado, nInt*2, argv[2]);
-
-  return 0;
-}
