@@ -14,27 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
-          - input: ""
-            output: ""
-          - input: 1k
-            output: 1k
-          - input: 2k
-            output: 2k
-          - input: 5k
-            output: 5k
-          - input: -5k-3
-            output: -5k-3
-          - input: -5k-5
-            output: -5k-5
-          - input: 10k
-            output: 10k
-          - input: 20k
-            output: 20k
-          - input: 25k
-            output: 25k
-          - input: 30k
-            output: 30k
+        tests: ["", 1k, 2k, 5k, -5k-3, -5k-5, 10k, 20k, 25k, 30k]
         
     steps:
     - uses: actions/checkout@v3
@@ -44,6 +24,6 @@ jobs:
 
     - uses: GuillaumeFalourd/assert-command-line-output@v2
       with:
-        command_line: ./Karatsuba/karatsuba ./Karatsuba/Inputs/input${{ matrix.input }}.txt
-        assert_file_path: ./Karatsuba/Outputs/output${{ matrix.output }}.txt
+        command_line: ./Karatsuba/karatsuba ./Karatsuba/Inputs/input${{ matrix.tests }}.txt
+        assert_file_path: ./Karatsuba/Outputs/output${{ matrix.tests }}.txt
         expected_result: PASSED
