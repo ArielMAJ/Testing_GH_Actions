@@ -2,8 +2,8 @@ name: Test Some Assignment
 on:
   push:
     branches: [ main ]
-#     paths:
-#       - './SomeAssignment/'
+    paths:
+      - './SomeAssignment/'
 
 jobs:
   Check:
