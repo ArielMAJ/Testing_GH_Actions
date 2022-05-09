@@ -7,7 +7,7 @@ int main(void)
 	int value;
 	scanf("%d", &value);
 
-	printf("%d\n", times_two(value));
+	printf("%d", times_two(value));
 	return 0;
 }
 
