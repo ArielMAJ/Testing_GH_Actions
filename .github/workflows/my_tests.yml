@@ -6,12 +6,12 @@ on:
 #       - './SomeAssignment/'
 
 jobs:
-  test_it_all:
+  Check:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        test_folder: [./SomeAssignment/Q1/]
+        test_folder: [./SomeAssignment/Q1]
         test: [1, 2, 3, 4, 5]
         
     steps:
