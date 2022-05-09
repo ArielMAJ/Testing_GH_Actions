@@ -4,3 +4,4 @@ I'm using this repo to figure out how to automate testing in C/C++ (but hopefull
 
 [![Hello, Test](https://github.com/ArielMAJ/Testing_GH_Actions/actions/workflows/hellotest.yml/badge.svg)](https://github.com/ArielMAJ/Testing_GH_Actions/actions/workflows/hellotest.yml)
 [![Karatsuba Tests](https://github.com/ArielMAJ/Testing_GH_Actions/actions/workflows/karatsuba.yml/badge.svg)](https://github.com/ArielMAJ/Testing_GH_Actions/actions/workflows/karatsuba.yml)
+[![Test Some Assignment](https://github.com/ArielMAJ/Testing_GH_Actions/actions/workflows/my_tests.yml/badge.svg)](https://github.com/ArielMAJ/Testing_GH_Actions/actions/workflows/my_tests.yml)
